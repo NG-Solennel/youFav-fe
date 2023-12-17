@@ -16,23 +16,18 @@ export interface FilmType {
   imdbID: string;
 }
 
-const Movies = () => {
+const Series = () => {
   const { user } = useUserStore();
   const { push } = useRouter();
   const { search } = useSearchStore();
   const { data, isLoading } = trpc.films.getFilms.useQuery({
-    type: "movie",
+    type: "series",
     term: search.length > 3 ? search : undefined,
   });
   const { mutate, isLoading: addLoading } =
     trpc.films.addToFavorites.useMutation();
 
-  useEffect(() => {
-    if (!user) {
-      push("/");
-    }
-  }, [user]);
-  const movies = data?.Search?.slice(0, 8).map((film: FilmType) => (
+  const series = data?.Search?.slice(0, 8).map((film: FilmType) => (
     <Card
       film={film}
       key={film.imdbID}
@@ -44,7 +39,7 @@ const Movies = () => {
               poster: film.Poster,
               title: film.Title,
               year: film.Year,
-              type: "MOVIE",
+              type: "SERIES",
               token: user?.token as string,
               userId: user?.id?.toString() as string,
             });
@@ -59,16 +54,16 @@ const Movies = () => {
   ));
   return (
     <section>
-      <h1 className="font-semibold text-2xl my-5 mx-16">Movies</h1>
+      <h1 className="font-semibold text-2xl my-5 mx-16">TV Shows</h1>
       <div className="grid grid-cols-4 justify-items-center">
         {isLoading ? (
           <Spinner className={`inline h-6 w-6 animate-spin fill-white`} />
         ) : (
-          <>{movies}</>
+          <>{series}</>
         )}
       </div>
     </section>
   );
 };
 
-export default Movies;
+export default Series;

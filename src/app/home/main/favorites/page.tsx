@@ -1,4 +1,3 @@
-"use client";
 import Favorites from "@/app/_components/Listings/Favorites";
 
 import { NextPage } from "next";
