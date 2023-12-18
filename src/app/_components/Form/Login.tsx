@@ -21,18 +21,24 @@ const Login: FC = () => {
   } = useForm({ resolver: zodResolver(loginSchema) });
   const { push } = useRouter();
   const { setUser, user } = useUserStore();
+  const [err, setErr] = React.useState<string | undefined>(undefined);
   const { mutate, isLoading } = trpc.auth.login.useMutation({
-    onSuccess: (data: UserType) => {
-      setUser(data);
+    onSuccess: (data: UserType | number) => {
       reset();
-      push("/home/main");
+      if (typeof data !== "number") {
+        setUser(data);
+        push("/home/main");
+      }
+      if (data === 400) {
+        setErr("Invalid email or password");
+      }
     },
     onError: (err: any) => {
       alert(err?.message);
     },
   });
   useEffect(() => {
-    if (user) {
+    if (user?.token) {
       push("/home/main");
     }
   }, [user]);
@@ -84,6 +90,7 @@ const Login: FC = () => {
               </span>
             )}
           </div>
+
           <Button type="submit" className="mt-3 rounded-3xl">
             {isLoading ? (
               <Spinner className={`inline h-5 w-5 animate-spin fill-white`} />
@@ -91,6 +98,7 @@ const Login: FC = () => {
               <span>Sign in</span>
             )}
           </Button>
+          {err && <span className="ml-5 text-error text-xs">{err}</span>}
         </form>
         <p className="text-white">
           Don&apos;t have an account{" "}

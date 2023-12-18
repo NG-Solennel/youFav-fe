@@ -18,7 +18,7 @@ async function fetcher({
   const baseUrl = process.env[envName];
   try {
     if (!baseUrl) throw new Error("Missing base api url");
-    console.log(JSON.stringify(body));
+
     const response = await fetch(`${baseUrl}/${route}`, {
       method: method,
       headers:
@@ -34,7 +34,9 @@ async function fetcher({
           : { "Content-Type": "application/json" },
       body: body ? JSON.stringify(body) : null,
     });
-
+    if (!response.ok) {
+      return response.status;
+    }
     const data = await response.json();
     return data;
   } catch (error) {

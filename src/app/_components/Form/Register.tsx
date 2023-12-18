@@ -25,7 +25,9 @@ const Register: FC = () => {
     onSuccess: (data: UserType) => {
       setUser(data);
       reset();
-      push("/home/main");
+      if (data?.token) {
+        push("/home/main");
+      }
     },
     onError: (err: any) => {
       alert(err?.message);
