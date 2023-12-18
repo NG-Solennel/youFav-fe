@@ -34,7 +34,7 @@ const Login: FC = () => {
       }
     },
     onError: (err: any) => {
-      alert(err?.message);
+      setErr("User account not found");
     },
   });
   useEffect(() => {
