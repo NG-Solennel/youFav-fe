@@ -16,33 +16,28 @@ async function fetcher({
   withoutContentType,
 }: fetcherArgType) {
   const baseUrl = process.env[envName];
-  try {
-    if (!baseUrl) throw new Error("Missing base api url");
+  if (!baseUrl) throw new Error("Missing base api url");
 
-    const response = await fetch(`${baseUrl}/${route}`, {
-      method: method,
-      headers:
-        token && !withoutContentType
-          ? {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            }
-          : token && withoutContentType
-          ? {
-              Authorization: `Bearer ${token}`,
-            }
-          : { "Content-Type": "application/json" },
-      body: body ? JSON.stringify(body) : null,
-    });
-    if (!response.ok) {
-      return response.status;
-    }
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.error("Error:", error instanceof Error ? error.message : "");
-    throw error;
+  const response = await fetch(`${baseUrl}/${route}`, {
+    method: method,
+    headers:
+      token && !withoutContentType
+        ? {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          }
+        : token && withoutContentType
+        ? {
+            Authorization: `Bearer ${token}`,
+          }
+        : { "Content-Type": "application/json" },
+    body: body ? JSON.stringify(body) : null,
+  });
+  if (!response.ok) {
+    return response.status;
   }
+  const data = await response.json();
+  return data;
 }
 
 export default fetcher;

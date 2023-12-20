@@ -1,5 +1,5 @@
 "use client";
-import React, { FC, useEffect } from "react";
+import React, { FC, useEffect, useState } from "react";
 import Input from "../Input";
 import { Button } from "../Button";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
@@ -21,17 +21,19 @@ const Register: FC = () => {
   } = useForm({ resolver: zodResolver(registerSchema) });
   const { push } = useRouter();
   const { setUser } = useUserStore();
+  const [err, setErr] = useState<string>("");
   const { mutate, isLoading } = trpc.auth.register.useMutation({
-    onSuccess: (data: UserType) => {
-      setUser(data);
-      reset();
-      if (data?.token) {
+    onSuccess: (data: UserType | number) => {
+      if (typeof data !== "number") {
+        setUser(data);
+        reset();
         push("/home/main");
       }
+      if (data === 400) {
+        setErr("User already exists");
+      }
     },
-    onError: (err: any) => {
-      alert(err?.message);
-    },
+    onError: (err: any) => {},
   });
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     const submitData = data as {
@@ -129,6 +131,7 @@ const Register: FC = () => {
               <span>Register</span>
             )}
           </Button>
+          {err.length > 0 && <span className="text-error text-xs">{err}</span>}
         </form>
         <p className="text-white">
           Already have an account{" "}

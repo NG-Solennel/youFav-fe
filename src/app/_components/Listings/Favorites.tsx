@@ -56,18 +56,19 @@ const Favorites = () => {
         rowTwo={
           <div className="flex justify-start items-center gap-5 max-w-[240px]">
             <Button
-              onClick={() =>
+              onClick={() => {
                 toggle({
                   id: fav.id.toString(),
                   token: user?.token as string,
                   isWatched: !fav.isWatched ? "true" : "false",
-                })
-              }
+                });
+                setActive(idx);
+              }}
               className={`${
-                toggleLoading ? "bg-opacity-10" : null
+                toggleLoading && active === idx ? "bg-opacity-10" : null
               } px-2 py-1 text-sm max-w-[150px] font-medium flex justify-center items-center`}
             >
-              {toggleLoading ? (
+              {toggleLoading && active === idx ? (
                 <Spinner className={`inline h-6 w-6 animate-spin fill-white`} />
               ) : (
                 <span>{fav.isWatched ? "Mark as new" : "Mark as watched"}</span>

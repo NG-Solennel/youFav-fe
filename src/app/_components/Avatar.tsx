@@ -30,8 +30,8 @@ const Avatar = () => {
           <div className="flex justify-end items-center w-[100%]">
             <Button
               onClick={() => {
-                setUser(undefined);
                 push("/");
+                setUser(undefined);
               }}
               className="w-fit px-4 py-1"
             >
