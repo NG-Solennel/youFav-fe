@@ -62,7 +62,7 @@ export default function PopUp({
       ) : (
         <DialogTrigger onClick={openModal} className={buttonStyle}>
           {iconPosition === "LEFT" && buttonIcon}
-          <span className="text-sm bg-primary px-3 py-1 rounded-md hover:bg-header transition-all ease-in duration-150">
+          <span className="text-xs bg-primary px-2 py-1 rounded-md hover:bg-header transition-all ease-in duration-150">
             {buttonText}
           </span>
           {iconPosition === "RIGHT" && buttonIcon}
@@ -73,7 +73,7 @@ export default function PopUp({
           maxWidth ? maxWidth : "",
           isLarge ? "overflow-y-auto" : "",
           isSmall ? "min-w-[35%] " : "min-w-[50%] 4xl:min-w-[40%]",
-          " relative max-h-[96vh] rounded-xl bg-dark px-5 text-left align-middle text-white shadow-xl transition-all scrollbar-thin scrollbar-track-hc-gray-100 scrollbar-thumb-hc-gray-200  dark:bg-hc-darkgray-50  dark:text-hc-darkgray-400  dark:scrollbar-track-hc-darkgray-50 dark:scrollbar-thumb-hc-darkgray-100"
+          " relative max-h-[96vh] border-light rounded-xl bg-dark px-5 text-left align-middle text-white shadow-xl transition-all scrollbar-thin scrollbar-track-hc-gray-100 scrollbar-thumb-hc-gray-200  dark:bg-hc-darkgray-50  dark:text-hc-darkgray-400  dark:scrollbar-track-hc-darkgray-50 dark:scrollbar-thumb-hc-darkgray-100"
         )}
       >
         {children}

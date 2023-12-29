@@ -33,7 +33,7 @@ const Avatar = () => {
                 push("/");
                 setUser(undefined);
               }}
-              className="w-fit px-4 py-1"
+              className="w-fit px-3 text-xs py-1"
             >
               Logout
             </Button>
@@ -46,7 +46,7 @@ const Avatar = () => {
                 className="w-10 h-10 rounded-full"
               />
             </div>
-            <div>
+            <div className="text-xs">
               {user?.firstName}&nbsp;{user?.lastName}
               <p className="font-light">{user?.login}</p>
             </div>

@@ -47,7 +47,7 @@ const DialogContent = React.forwardRef<
       onClick={(event) => event.stopPropagation()}
       ref={ref}
       className={cn(
-        "animate-in data-[state=open]:fade-in-90 data-[state=open]:slide-in-from-bottom-10 sm:zoom-in-90 data-[state=open]:sm:slide-in-from-bottom-0 fixed z-50 grid gap-4 rounded-b-lg border bg-deep shadow-sm shadow-middark outline outline-[0.3px] outline-white focus:outline-none dark:border-none sm:rounded-lg",
+        "animate-in data-[state=open]:fade-in-90 data-[state=open]:slide-in-from-bottom-10 sm:zoom-in-90 data-[state=open]:sm:slide-in-from-bottom-0 fixed z-50 grid gap-4 rounded-b-lg border bg-deep shadow-sm shadow-middark outline outline-[0.3px] outline-deep focus:outline-none dark:border-none sm:rounded-lg",
         className
       )}
       {...props}

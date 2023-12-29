@@ -5,6 +5,7 @@ import { FilmType } from "./Listings/Movies";
 import { Button } from "./Button";
 import { Plus } from "phosphor-react";
 import na from "../../../public/na.jpg";
+import { useRouter } from "next/navigation";
 
 interface CardProps {
   film: FilmType;
@@ -13,8 +14,12 @@ interface CardProps {
 }
 
 const Card: FC<CardProps> = ({ film, rowOne, rowTwo }) => {
+  const { push } = useRouter();
   return (
-    <div className="w-60 flex flex-col gap-2 items-center justify-center m-5">
+    <div
+      onClick={() => push(`/home/main/${film.imdbID}`)}
+      className="w-60 flex flex-col gap-2 items-center justify-center m-2 cursor-pointer"
+    >
       <Image
         src={film.Poster.startsWith("https://") ? film.Poster : na}
         alt="mvImage"

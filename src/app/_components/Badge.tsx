@@ -8,7 +8,7 @@ interface BadgeProps {
 const Badge: FC<BadgeProps> = ({ className, label }) => {
   return (
     <span
-      className={`px-2 py-[3px] text-xs rounded-md font-semibold ${className}`}
+      className={`px-2 py-[2px] text-[11px] rounded-md font-semibold ${className}`}
     >
       {label}
     </span>

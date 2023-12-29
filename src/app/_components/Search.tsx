@@ -2,9 +2,13 @@
 import useSearchStore from "@/store/search";
 import Input from "./Input";
 import { MagnifyingGlass } from "phosphor-react";
+import { useEffect } from "react";
 
 const Search = () => {
   const { search, setSearch } = useSearchStore();
+  useEffect(() => {
+    setSearch("");
+  }, []);
   return (
     <div className="px-8 h-full py-2 flex justify-end items-center relative">
       <Input

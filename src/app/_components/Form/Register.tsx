@@ -58,7 +58,7 @@ const Register: FC = () => {
                 register={register("firstName")}
                 id="firstName"
                 placeholder="First name"
-                className="pl-12 pt-2 rounded-3xl"
+                className="pl-12 pt-2 rounded-3xl border-2 border-light"
                 autoComplete="off"
               />
               <User className="w-6 h-6 text-white text-opacity-50 absolute top-2 left-4" />
@@ -76,7 +76,7 @@ const Register: FC = () => {
                 register={register("lastName")}
                 id="lastName"
                 placeholder="Last name"
-                className="pl-12 pt-2 rounded-3xl"
+                className="pl-12 pt-2 rounded-3xl border-2 border-light"
                 autoComplete="off"
               />
               <User className="w-6 h-6 text-white text-opacity-50 absolute top-2 left-4" />
@@ -94,7 +94,7 @@ const Register: FC = () => {
                 register={register("email")}
                 id="email"
                 placeholder="Email"
-                className="pl-12 pt-2 rounded-3xl"
+                className="pl-12 pt-2 rounded-3xl border-2 border-light"
                 autoComplete="off"
               />
               <Envelope className="w-6 h-6 text-white text-opacity-50 absolute top-2 left-4" />
@@ -113,7 +113,7 @@ const Register: FC = () => {
                 register={register("password")}
                 id="password"
                 placeholder="Password"
-                className="pl-12 pt-2 rounded-3xl"
+                className="pl-12 pt-2 rounded-3xl border-2 border-light"
                 autoComplete="off"
               />
               <Lock className="w-6 h-6 text-white text-opacity-50 absolute top-2 left-4" />

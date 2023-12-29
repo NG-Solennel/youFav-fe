@@ -10,6 +10,16 @@ import { Button } from "../Button";
 import { Spinner } from "phosphor-react";
 import PopupProvider from "@/Context/PopupContext";
 import ReferPopup from "../ReferPopup";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "../ui/Carousel";
+import Autoplay from "embla-carousel-autoplay";
+import CardSkeleton from "../CardSkeleton";
+
 const Reference = () => {
   const { user } = useUserStore();
   const { data, isLoading, refetch } = trpc.films.getFavorites.useQuery({
@@ -17,7 +27,7 @@ const Reference = () => {
   });
   const watchedFavs = data
     ?.filter((fav: FavType) => fav.isWatched)
-    .map((fav: FavType) => {
+    .map((fav: FavType, index: number) => {
       const film: FilmType = {
         imdbID: fav.imdbID,
         Poster: fav.poster,
@@ -25,34 +35,48 @@ const Reference = () => {
         Year: fav.year,
       };
       return (
-        <Card
-          rowOne={
-            fav.isWatched ? (
-              <Badge className="bg-ordinary" label="watched" />
-            ) : (
-              <Badge className="bg-secondary" label="New" />
-            )
-          }
-          rowTwo={
-            <PopupProvider>
-              <ReferPopup film={film} />
-            </PopupProvider>
-          }
-          film={film}
-          key={fav.id}
-        />
+        <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/4">
+          <Card
+            rowOne={
+              fav.isWatched ? (
+                <Badge className="bg-ordinary" label="Watched" />
+              ) : (
+                <Badge className="bg-secondary" label="New" />
+              )
+            }
+            rowTwo={
+              <PopupProvider>
+                <ReferPopup film={film} />
+              </PopupProvider>
+            }
+            film={film}
+            key={fav.id}
+          />
+        </CarouselItem>
       );
     });
   return (
     <section className="w-full">
-      <h1 className="font-semibold text-2xl my-5 mx-16">Reference</h1>
+      <h1 className="font-semibold text-2xl my-5 mx-28">Reference</h1>
       {isLoading ? (
-        <div className="w-[800px] flex justify-center items-center mt-20">
-          <Spinner className={`inline h-10 w-10 animate-spin fill-white`} />
-        </div>
+        <CardSkeleton number={4} />
       ) : (
-        <div className="grid grid-cols-4 justify-items-center w-full">
-          <>{watchedFavs}</>
+        <div className="w-full px-20">
+          <Carousel
+            opts={{
+              align: "start",
+            }}
+            plugins={[
+              Autoplay({
+                delay: 2000,
+              }),
+            ]}
+            className="w-full"
+          >
+            <CarouselContent className="w-full">{watchedFavs}</CarouselContent>
+            <CarouselPrevious />
+            <CarouselNext />
+          </Carousel>
         </div>
       )}
     </section>

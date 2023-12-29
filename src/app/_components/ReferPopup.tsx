@@ -48,9 +48,9 @@ const ReferPopup = ({ film }: { film: FilmType }) => {
   };
   return (
     <PopUp buttonText="Refer via email" maxWidth="lg" isSmall={true}>
-      <div className="flex flex-col pb-5">
+      <div className="flex flex-col gap-4 pb-5">
         <div className="sticky top-0 z-20 flex items-center bg-dark py-3 text-xs dark:bg-hc-darkgray-50">
-          <h2 className="text-base font-bold text-secondary dark:text-gray-200 xl:text-base">
+          <h2 className="text-3xl font-bold text-secondary text-opacity-80">
             Refer via email
           </h2>
         </div>
@@ -69,8 +69,8 @@ const ReferPopup = ({ film }: { film: FilmType }) => {
               <Input
                 register={register("name")}
                 id="name"
-                placeholder="Name"
-                className="rounded-xl"
+                placeholder="Type your name here..."
+                className="rounded-xl border-2 text-xs border-light"
                 autoComplete="off"
               />
 
@@ -89,8 +89,8 @@ const ReferPopup = ({ film }: { film: FilmType }) => {
               <Input
                 register={register("email")}
                 id="email"
-                placeholder="Email"
-                className="rounded-xl"
+                placeholder="Type your email here ..."
+                className="rounded-xl border-2 text-xs border-light"
                 autoComplete="off"
               />
 
@@ -105,12 +105,13 @@ const ReferPopup = ({ film }: { film: FilmType }) => {
             <label className="text-xs font-bold text-white" htmlFor="email">
               Message:
             </label>
-            <div className="my-4">
-              <Input
-                register={register("message")}
+            <div className="my-4 flex flex-col">
+              <textarea
+                {...register("message")}
+                rows={3}
                 id="message"
-                placeholder="Message"
-                className="rounded-xl"
+                placeholder="Type your message here ..."
+                className="rounded-xl border-2 bg-dark text-white w-full border-light focus:border-primary focus:outline-none border-opacity-40 text-xs px-3 py-1"
                 autoComplete="off"
               />
 
@@ -124,15 +125,18 @@ const ReferPopup = ({ film }: { film: FilmType }) => {
 
           <div className="ml-auto mt-3 flex gap-4">
             <Button
-              className="button w-fit bg-secondary hover:bg-secondary bg-opacity-25 hover:bg-opacity-60 shadow-xl px-3"
+              className="button w-fit text-xs bg-secondary hover:bg-secondary bg-opacity-25 hover:bg-opacity-60 shadow-xl px-3"
               onClick={closeModal}
               variant="default"
             >
               Cancel
             </Button>
-            <Button className="button w-fit px-3" type="submit">
+            <Button
+              className="button w-fit px-3 text-xs min-w-[60px]"
+              type="submit"
+            >
               {isLoading ? (
-                <Spinner className={`inline h-6 w-6 animate-spin fill-white`} />
+                <Spinner className={`inline h-3 w-3 animate-spin fill-white`} />
               ) : (
                 "Submit"
               )}

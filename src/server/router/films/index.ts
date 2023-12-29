@@ -5,6 +5,7 @@ import { getFavorites } from "./getFavorites";
 import { removeFavorite } from "./removeFavorite";
 import { toggleIsWatched } from "./toggleIsWatched";
 import { referViaEmail } from "./refer";
+import { getFilmDetails } from "./getFilmDetails";
 
 export const films = router({
   getFilms,
@@ -13,4 +14,5 @@ export const films = router({
   removeFavorite,
   toggleIsWatched,
   referViaEmail,
+  getFilmDetails,
 });

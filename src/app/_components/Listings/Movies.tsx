@@ -8,7 +8,15 @@ import Spinner from "../Spinner";
 import { Button } from "../Button";
 import { Plus } from "phosphor-react";
 import useSearchStore from "@/store/search";
-
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "../ui/Carousel";
+import Autoplay from "embla-carousel-autoplay";
+import CardSkeleton from "../CardSkeleton";
 export interface FilmType {
   Title: string;
   Year: string;
@@ -32,39 +40,56 @@ const Movies = () => {
       push("/");
     }
   }, [user]);
-  const movies = data?.Search?.slice(0, 8).map((film: FilmType) => (
-    <Card
-      film={film}
-      key={film.imdbID}
-      rowOne={
-        <Button
-          onClick={() => {
-            mutate({
-              imdbID: film.imdbID,
-              poster: film.Poster,
-              title: film.Title,
-              year: film.Year,
-              type: "MOVIE",
-              token: user?.token as string,
-              userId: user?.id?.toString() as string,
-            });
-          }}
-          disabled={addLoading}
-          className="p-1 rounded-full w-7 h-7 bg-secondary hover:bg-opacity-70 hover:bg-secondary text-sm relative"
-        >
-          <Plus className={`w-5 h-5 ${addLoading ? "opacity-50" : null}`} />
-        </Button>
-      }
-    />
+  const movies = data?.Search?.map((film: FilmType, index: number) => (
+    <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/4">
+      <Card
+        film={film}
+        key={film.imdbID}
+        rowOne={
+          <Button
+            onClick={(e) => {
+              e.stopPropagation();
+              mutate({
+                imdbID: film.imdbID,
+                poster: film.Poster,
+                title: film.Title,
+                year: film.Year,
+                type: "MOVIE",
+                token: user?.token as string,
+                userId: user?.id?.toString() as string,
+              });
+            }}
+            disabled={addLoading}
+            className="p-1 rounded-full w-7 h-7 bg-secondary hover:bg-opacity-70 hover:bg-secondary text-sm relative"
+          >
+            <Plus className={`w-5 h-5 ${addLoading ? "opacity-50" : null}`} />
+          </Button>
+        }
+      />
+    </CarouselItem>
   ));
   return (
-    <section>
-      <h1 className="font-semibold text-2xl my-5 mx-16">Movies</h1>
-      <div className="grid grid-cols-4 justify-items-center">
+    <section className="w-full">
+      <h1 className="font-semibold text-2xl my-5 mx-28">Movies</h1>
+      <div className="w-full px-20">
         {isLoading ? (
-          <Spinner className={`inline h-6 w-6 animate-spin fill-white`} />
+          <CardSkeleton number={4} />
         ) : (
-          <>{movies}</>
+          <Carousel
+            opts={{
+              align: "start",
+            }}
+            plugins={[
+              Autoplay({
+                delay: 2000,
+              }),
+            ]}
+            className="w-full"
+          >
+            <CarouselContent className="w-full">{movies}</CarouselContent>
+            <CarouselPrevious />
+            <CarouselNext />
+          </Carousel>
         )}
       </div>
     </section>
