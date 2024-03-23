@@ -1,5 +1,6 @@
 import { registerSchema } from "@/app/validations/registerSchema";
 import { publicProcedure } from "@/server/trpc";
+import { ErrorMessages } from "@/utils/errorMessages";
 import fetcher from "@/utils/fetcher";
 import { z } from "zod";
 
@@ -17,5 +18,13 @@ export const getFavorites = publicProcedure
       route: "favorite",
       token,
     });
+    if (typeof res === "number") {
+      return {
+        error: {
+          status: res,
+          message: ErrorMessages[res as keyof typeof ErrorMessages],
+        },
+      };
+    }
     return res;
   });
