@@ -14,7 +14,13 @@ const Navbar = () => {
       <nav className="bg-deep w-full h-12 rounded-md flex gap-5 justify-between items-center px-5">
         <Logo size="small" />
         <Links />
-        {isMain ? <Search /> : null}
+        {isMain ? (
+          <Search />
+        ) : (
+          <div className="w-48 px-[32px] ">
+            <div className="px-[40px]"></div>
+          </div>
+        )}
         <Avatar />
       </nav>
     </header>
