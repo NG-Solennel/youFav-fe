@@ -43,7 +43,8 @@ const Series = () => {
         key={film.imdbID}
         rowOne={
           <Button
-            onClick={() => {
+            onClick={(e) => {
+              e.stopPropagation();
               mutate({
                 imdbID: film.imdbID,
                 poster: film.Poster,
